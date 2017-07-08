@@ -12,20 +12,20 @@ function Welcome(props){
     return <h1>Welcome, {props.name}</h1>
 }
 
-/*
-2. create `Components` with ES6 class 
-*/
-class Hey extends React.Component {
+
+class App extends React.Component {
     render(){
-        return <h1>Hey, { this.props.name }</h1>
+        return (
+            <div>
+                <Welcome name="evan" />
+                <Welcome name="peng" />
+                <Welcome name="fan" />
+            </div>
+        )
     }
 }
 
-
 ReactDOM.render(
-    <div>
-        <Welcome name="evan" />
-        <Hey name="peng"/>,
-    </div>,
+    <App />,
     document.getElementById('root')
 )
