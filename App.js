@@ -1,16 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Welcome from './component/Welcome.jsx'
 
-class App extends React.Component {
-    render(){
-        return(
-            <Welcome name="tom" />
-        )   
-    }
+function tick(){
+    const element = (
+        <div>
+            <h1>Hello, React</h1>
+            <h2>{`now time:  ${ new Date().toLocaleString()}` }</h2>
+        </div>
+        
+    )
+
+    ReactDOM.render(
+        element,
+        document.getElementById('root')
+    )
+
 }
 
-ReactDOM.render(
-    <App/>,
-    document.getElementById('root')
-)
+setInterval(tick, 1000)
+
+
+
+
