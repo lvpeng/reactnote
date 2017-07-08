@@ -1,31 +1,43 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-
-/*
-1.create `Components` by function
-*/
-
-//accept a single 'props' object argument
-// reurn a React element 
-function Welcome(props){
-    return <h1>Welcome, {props.name}</h1>
+function formatDate(date){
+    return date.toLocaleDateString()
 }
 
-
-class App extends React.Component {
-    render(){
-        return (
-            <div>
-                <Welcome name="evan" />
-                <Welcome name="peng" />
-                <Welcome name="fan" />
+function Comment(props){
+    return (
+        <div className="Comment">
+            <div className="Avatar">
+                <img src="{props.author.avatarUrl} alt={props.author.name}" /> 
             </div>
-        )
-    }
+            <div className="UserInfo-name">
+                {props.author.name}
+            </div>
+            <div className="Comment-text">
+                {props.text}
+            </div>
+            <div className="Comment-date">
+                {formatDate(props.date)}
+            </div>
+        </div>
+    )
+}
+
+const comment = {
+    author : {
+        name: "peng",
+        avatarUrl: "https://avatars0.githubusercontent.com/u/3367684?v=3&u=2c69d764df01d58fab1c89d94a8f24c37ff0f654&s=400",
+    },
+    text: "滴滴顺风车的司机真不靠谱唉",
+    date: new Date()
 }
 
 ReactDOM.render(
-    <App />,
+    <Comment 
+        author= {comment.author}
+        text= {comment.text}
+        date= { comment.date }
+    />,
     document.getElementById('root')
 )
