@@ -3,59 +3,58 @@ import ReactDOM from 'react-dom'
 
 
 /*
-    Using State Correctly
+    State Updates are Merged
 */
-class Counter extends React.Component{
+class Article extends React.Component{
     constructor(props){
         super(props)
-        this.state = { counter : 0 }
-    }
-    
-    componentDidMount () {
-        this.timerID = setInterval(
-            () => this.tick(),
-            1000)
+        this.state = { 
+            posts : [],
+            comments: []
+        }
     }
 
-    componentWillUnmount() {
-        clearInterval(this.timerID)
-    }
-    
-    tick(){
-        /*
-            1. Do Not Modify State Directly
-                The only place where you can assign this.state is the constructor.
-        */
-        // Wrong
-        // this.state.counter = 1
+/* When you call setState(), React merges the object you         provide        into the current state.
 
-        /*2. State Updates May Be Asynchronous*/
-        // wrong
-        // this.setState({
-        //     counter: this.state.counter + parseInt(this.props.increment)
-        // })
-        this.setState((preState, props) => ({
-                counter: preState.counter + parseInt(props.increment)
+    The merging is shallow, so this.setState({comments}) leaves this.state.posts intact, but completely replaces this.state.comments.
+
+
+*/    
+    componentDidMount() {
+        fetchPosts().then( result  => {
+            this.setState({
+                posts: result.data.posts
             })
-        )
+        })
+        fetchComments().then( result => {
+            this.setState({
+                comments: result.data.comments
+            })
+        })
+    }
+
+
+    fetchPosts(){
+        //...
         
     }
+    fetchComments(){
+        //..
+    }
 
-/*
-   " If you don't use something in render(), it shouldn't be in the state."
-    
-*/
     render(){
         return (
             <div>
-                <h1>Hello, Counter</h1>
-                <h2>{this.state.counter}</h2>
+                <h1>Article List</h1>
+                <ul>
+                    {}
+                </ul>
             </div>    
         )
     }
 }
 
 ReactDOM.render(
-    <Counter increment="1" />,
+    <Article />,
     document.getElementById("root")
 )     
