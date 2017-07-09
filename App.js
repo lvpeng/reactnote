@@ -1,19 +1,45 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+const path = require('path')
 
+/*
+formatDate helper
+*/
 function formatDate(date){
     return date.toLocaleDateString()
 }
+/*
+Avatar Component
+*/
+function Avatar(props){
+    return (
+        <div className="Avatar">
+            <img src={props.user.avatarUrl} alt={props.user.name}/>
+        </div>
+    )
+}
 
+/*
+UserInfo Component
+*/
+function UserInfo(props){
+    return (
+            <div className="UserInfo">
+                <Avatar user={props.user} />
+                <div className="UserInfo-name">
+                    {props.user.name}
+                </div>
+            </div>
+        )
+}
+
+/*
+Comment Component
+*/
 function Comment(props){
     return (
         <div className="Comment">
-            <div className="Avatar">
-                <img src="{props.author.avatarUrl} alt={props.author.name}" /> 
-            </div>
-            <div className="UserInfo-name">
-                {props.author.name}
-            </div>
+            <UserInfo user={props.user}/>
             <div className="Comment-text">
                 {props.text}
             </div>
@@ -24,20 +50,21 @@ function Comment(props){
     )
 }
 
-const comment = {
-    author : {
-        name: "peng",
-        avatarUrl: "https://avatars0.githubusercontent.com/u/3367684?v=3&u=2c69d764df01d58fab1c89d94a8f24c37ff0f654&s=400",
+
+const _comment = {
+    user: {
+        avatarUrl: path.resolve(__dirname, "static/avatar.jpg"),
+        name: "peng"
     },
-    text: "滴滴顺风车的司机真不靠谱唉",
+    text: "learn react , good luck :p",
     date: new Date()
 }
 
 ReactDOM.render(
     <Comment 
-        author= {comment.author}
-        text= {comment.text}
-        date= { comment.date }
+        user = { _comment.user}
+        text= { _comment.text }
+        date= { _comment.date }
     />,
     document.getElementById('root')
 )
