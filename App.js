@@ -4,11 +4,16 @@ import ReactDOM from 'react-dom'
 /*
     Conditional Rendering
 */
-function UserGreeting(){
-    return <h1>Welcome back</h1>
+function LoginButton(props){
+    return (
+        <button onClick={props.onClick}>Login</button>
+    )
 }
-function GuestGreeting(){
-    return <h1>Sign up</h1>
+
+function LogoutButton(props){
+    return (
+        <button onClick={props.onClick}>Logout</button>
+    )
 }
 
 function Greeting(props){
