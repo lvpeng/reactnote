@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom'
 
 // Button Component
 function Button(){
-
     function handleClick(){
       console.log('activateLasers');
     }
@@ -35,17 +34,40 @@ function ActionLink(){
     )
 }
 
+class Toggle extends React.Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            isToggleOn: false
+        }
+        // This binding is necessary to make `this` work in the callback
+        this.handleClick = this.handleClick.bind(this)
+    }
 
+    handleClick(){
+        this.setState(prevState => ({
+            isToggleOn: !prevState.isToggleOn
+        }))
+    }
+
+    render(){
+        return (
+            // `this.handleClick` , not `handleClick`
+            <button onClick={this.handleClick}>{this.state.isToggleOn ? "ON" : "OFF"}</button>
+        )
+    }
+}
 
 ReactDOM.render(
     <div>
         <Button />
         <ActionLink />
+        <Toggle />
     </div>,
     document.getElementById('root')
 )
+/*
+    This is not React-specific behavior; it is a part of how functions work in JavaScript. Generally, if you refer to a method without () after it, such as onClick={this.handleClick}, you should bind that method.
+*/
 
-/*Handling events with React elements is very similar to handling events on DOM elements. There are some syntactic differences:
-
-- React events are named using `camelCase`, rather than lowercase.
-- With JSX you pass a function as the event handler, rather than a string.*/
+// This binding is necessary to make `this` work in the callback
